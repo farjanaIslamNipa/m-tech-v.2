@@ -16,12 +16,12 @@ const ProductCard = ({ product }) => {
         </div>
       )}
       <div className='h-52 w-52 mx-auto'>
-        <img src={product.images[0]} alt={product.title} />
+        <img src={product.images[0]} alt={product.model} />
       </div>
-      <h1 className='font-bold text-center'>{product.title}</h1>
+      <h1 className='font-bold text-center'>{product.model}</h1>
       <p className='text-center font-semibold mb-3'>Rating: {product.rating}</p>
       <div className=' flex-1'>
-        <p>{product.description}</p>
+        {/* <p>{product.description}</p> */}
       </div>
       <div className='flex gap-2 mt-5'>
         {!pathname.includes("cart") && (

@@ -1,0 +1,15 @@
+import { TOGGLE_BRAND, TOGGLE_STOCK } from "../actionTypes/actionTypes"
+
+export const toggleBrand = (brandName) => {
+  return {
+    type: TOGGLE_BRAND,
+    payload: brandName
+  }
+}
+
+export const toggleStock = (stock) => {
+  return {
+    type: TOGGLE_STOCK,
+    payload: stock
+  }
+}

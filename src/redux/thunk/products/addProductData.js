@@ -1,4 +1,4 @@
-import { UNSAFE_DataStaticRouterContext } from "react-router-dom";
+
 import { addProduct } from "../../actions/productAction";
 
 const addProductData = (product) => {

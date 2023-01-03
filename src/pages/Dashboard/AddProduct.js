@@ -1,25 +1,28 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { addProduct } from "../../redux/actions/productAction";
+import addProductData from "../../redux/thunk/products/addProductData";
 
 const AddProduct = () => {
   const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
 
   const submit = (data) => {
     const product = {
-      model: data.model,
+      // id: 31,
+      title: data.title,
       brand: data.brand,
       status: data.status === "true" ? true : false,
       price: data.price,
-      keyFeature: [
-        data.keyFeature1,
-        data.keyFeature2,
-        data.keyFeature3,
-        data.keyFeature4,
-      ],
-      spec: [],
+      rating: data.rating,
+      images: [
+        "https://i.dummyjson.com/data/products/1/1.jpg"                                 
+      ]
     };
 
     console.log(product);
+    dispatch(addProductData(product));
   };
 
   return (
@@ -29,10 +32,10 @@ const AddProduct = () => {
         onSubmit={handleSubmit(submit)}
       >
         <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='model'>
+          <label className='mb-2' htmlFor='title'>
             Model
           </label>
-          <input type='text' id='model' {...register("model")} />
+          <input type='text' id='title' {...register("title")} />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='image'>
@@ -51,10 +54,10 @@ const AddProduct = () => {
           </select>
         </div>
         <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='price'>
-            Image
+          <label className='mb-2' htmlFor='rating'>
+            Rating
           </label>
-          <input type='text' name='price' id='price' {...register("price")} />
+          <input type='text' name='rating' id='rating' {...register("rating")} />
         </div>
 
         <div className='flex flex-col w-full max-w-xs'>
@@ -86,50 +89,6 @@ const AddProduct = () => {
           </div>
         </div>
         <div className='flex flex-col w-full max-w-xs'></div>
-        <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='keyFeature1'>
-            Key Feature 1
-          </label>
-          <input
-            type='text'
-            name='keyFeature1'
-            id='keyFeature1'
-            {...register("keyFeature1")}
-          />
-        </div>
-        <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='keyFeature2'>
-            Key Feature 2
-          </label>
-          <input
-            type='text'
-            name='keyFeature2'
-            id='keyFeature2'
-            {...register("keyFeature2")}
-          />
-        </div>
-        <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='keyFeature3'>
-            Key Feature 3
-          </label>
-          <input
-            type='text'
-            name='keyFeature3'
-            id='keyFeature3'
-            {...register("keyFeature3")}
-          />
-        </div>
-        <div className='flex flex-col w-full max-w-xs'>
-          <label className='mb-2' htmlFor='keyFeature4'>
-            Key Feature 4
-          </label>
-          <input
-            type='text'
-            name='keyFeature4'
-            id='keyFeature4'
-            {...register("keyFeature4")}
-          />
-        </div>
 
         <div className='flex justify-between items-center w-full'>
           <button

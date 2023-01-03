@@ -16,9 +16,9 @@ const ProductCard = ({ product }) => {
         </div>
       )}
       <div className='h-52 w-52 mx-auto'>
-        <img src={product.images[0]} alt={product.model} />
+        <img src={product.images[0]} alt={product.title} />
       </div>
-      <h1 className='font-bold text-center'>{product.model}</h1>
+      <h1 className='font-bold text-center'>{product.title}</h1>
       <p className='text-center font-semibold mb-3'>Rating: {product.rating}</p>
       <div className=' flex-1'>
         {/* <p>{product.description}</p> */}

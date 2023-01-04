@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import deleteProduct from "../../redux/thunk/products/deleteProduct";
 import loadProductData from "../../redux/thunk/products/fetchProducts";
 

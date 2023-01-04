@@ -1,35 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-// import { useForm } from "react-hook-form";
-// import { useDispatch } from "react-redux";
-// import addProductData from "../../redux/thunk/products/addProductData";
+import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import addProductData from "../../redux/thunk/products/addProductData";
+import editProductData from "../../redux/thunk/products/editProductData";
+import loadProductData from "../../redux/thunk/products/fetchProducts";
 
 const EditProduct = () => {
+  const product = useSelector((state) => state.product.product);
   let { id } = useParams();
-  // const { register, handleSubmit } = useForm();
-  // const dispatch = useDispatch();
+  console.log(id, 'id');
+  const { register, handleSubmit } = useForm();
+  const dispatch = useDispatch();
 
-  // const submit = (data) => {
-  //   const product = {
-  //     // id: 31,
-  //     title: data.title,
-  //     brand: data.brand,
-  //     status: data.status === "true" ? true : false,
-  //     price: data.price,
-  //     rating: data.rating,
-  //     images: [
-  //       "https://i.dummyjson.com/data/products/1/1.jpg"                                 
-  //     ]
-  //   };
+  useEffect(() => {
+    dispatch(editProductData(id))
+  }, [])
+  
+  console.log(product, 'prod');
 
-  //   console.log(product);
-  //   dispatch(addProductData(product));
-  // };
+  const submit = (data) => {
+    const product = {
+      // id: 31,
+      title: data.title,
+      brand: data.brand,
+      status: data.status === "true" ? true : false,
+      price: data.price,
+      rating: data.rating,
+      images: [
+        "https://i.dummyjson.com/data/products/1/1.jpg"                                 
+      ]
+    };
+
+    console.log(product);
+    dispatch(addProductData(product));
+  };
 
   return (
     <div className='flex justify-center items-center h-full '>
-      edit form
-      {/* <form
+      <form
         className='shadow-lg p-10 rounded-md flex flex-wrap gap-3 max-w-3xl justify-between bg-white'
         onSubmit={handleSubmit(submit)}
       >
@@ -100,7 +109,7 @@ const EditProduct = () => {
             Submit
           </button>
         </div>
-      </form> */}
+      </form>
     </div>
   );
 };

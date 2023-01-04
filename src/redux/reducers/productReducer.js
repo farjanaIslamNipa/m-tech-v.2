@@ -1,6 +1,7 @@
 import {
   ADD_PRODUCT,
   ADD_TO_CART,
+  EDIT_PRODUCT,
   LOAD_PRODUCT,
   PRODUCT_LOADED,
   REMOVE_FROM_CART,
@@ -10,6 +11,7 @@ import {
 const initialState = {
   cart: [],
   products: [],
+  product: {}
 };
 
 const productReducer = (state = initialState, action) => {
@@ -23,6 +25,12 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         products: action.payload
+      }
+    case EDIT_PRODUCT:
+      console.log(action.payload, 'payload')
+      return {
+        ...state,
+        product : action.payload
       }
     case ADD_PRODUCT:
       return {

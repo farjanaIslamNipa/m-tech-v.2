@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, Router } from "react-router-dom";
 import deleteProduct from "../../redux/thunk/products/deleteProduct";
 import loadProductData from "../../redux/thunk/products/fetchProducts";
 
@@ -84,6 +85,7 @@ const ProductList = () => {
                           ></path>
                         </svg>
                       </button>
+                      <Link to={`edit-product/${id}`}>Edit</Link>
                     </div>
                   </td>
                 </tr>

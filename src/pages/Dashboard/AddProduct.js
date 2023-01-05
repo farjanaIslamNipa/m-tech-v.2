@@ -1,7 +1,6 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { addProduct } from "../../redux/actions/productAction";
 import addProductData from "../../redux/thunk/products/addProductData";
 
 const AddProduct = () => {
@@ -20,8 +19,6 @@ const AddProduct = () => {
         "https://i.dummyjson.com/data/products/1/1.jpg"                                 
       ]
     };
-
-    console.log(product);
     dispatch(addProductData(product));
   };
 

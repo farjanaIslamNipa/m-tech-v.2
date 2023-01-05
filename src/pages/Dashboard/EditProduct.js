@@ -1,39 +1,53 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
-import addProductData from "../../redux/thunk/products/addProductData";
 import editProductData from "../../redux/thunk/products/editProductData";
-import loadProductData from "../../redux/thunk/products/fetchProducts";
-
+import updateProductData from "../../redux/thunk/products/updateProductData";
+const formData = {
+  title: '',
+  brand: '',
+  rating:'',
+  image: '',
+}
 const EditProduct = () => {
   const product = useSelector((state) => state.product.product);
-  let { id } = useParams();
-  console.log(id, 'id');
-  const { register, handleSubmit } = useForm();
   const dispatch = useDispatch();
+  const [formValue, setFormValue] = useState(formData)
+
+  let { id } = useParams();
+
+  const { register, handleSubmit } = useForm();
+
+  const handleChange = (e) => {
+    
+ console.log(e.target.value, 'value');
+    setFormValue({...product, [e.target.name]:e.target.value});
+  }
 
   useEffect(() => {
-    dispatch(editProductData(id))
-  }, [])
+    // setFormValue(product)
+    dispatch(editProductData(id));
+  }, [dispatch, id])
+  useEffect(() => {
+    setFormValue(product)
+  }, [product])
   
-  console.log(product, 'prod');
+  // console.log(product, 'product');
 
   const submit = (data) => {
+    // console.log(data, 'data');
     const product = {
-      // id: 31,
-      title: data.title,
-      brand: data.brand,
-      status: data.status === "true" ? true : false,
-      price: data.price,
-      rating: data.rating,
-      images: [
-        "https://i.dummyjson.com/data/products/1/1.jpg"                                 
-      ]
+      title: formValue.title,
+      // brand: data.brand,
+      // status: data.status === "true" ? true : false,
+      // price: data.price,
+      // rating: data.rating,
+      // images: [
+      //   "https://i.dummyjson.com/data/products/1/1.jpg"                                 
+      // ]
     };
-
-    console.log(product);
-    dispatch(addProductData(product));
+    dispatch(updateProductData(product));
   };
 
   return (
@@ -46,29 +60,30 @@ const EditProduct = () => {
           <label className='mb-2' htmlFor='title'>
             Model
           </label>
-          <input type='text' id='title' {...register("title")} />
+          <input onChange={handleChange} type='text' name="title" value={product.title} id='title' {...register("title")}  />
         </div>
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='image'>
             Image
           </label>
-          <input type='text' name='image' id='image' {...register("image")} />
+          <input onChange={handleChange} type='text' name='image' id='image' {...register("image")} />
         </div>
 
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-3' htmlFor='brand'>
             Brand
           </label>
-          <select name='brand' id='brand' {...register("brand")}>
+          <select onChange={handleChange} value={product.brand} name='brand' id='brand' {...register("brand")}>
             <option value='amd'>AMD</option>
             <option value='intel'>Intel</option>
+            <option value='OPPO'>OPPO</option>
           </select>
         </div>
         <div className='flex flex-col w-full max-w-xs'>
           <label className='mb-2' htmlFor='rating'>
             Rating
           </label>
-          <input type='text' name='rating' id='rating' {...register("rating")} />
+          <input onChange={handleChange} type='text' value={product.rating} name='rating' id='rating' {...register("rating")} />
         </div>
 
         <div className='flex flex-col w-full max-w-xs'>
@@ -78,6 +93,8 @@ const EditProduct = () => {
               <input
                 type='radio'
                 id='available'
+                onChange={handleChange}
+                checked={product.status === true ? true : false}
                 value={true}
                 {...register("status")}
               />
@@ -90,6 +107,8 @@ const EditProduct = () => {
                 type='radio'
                 id='stockOut'
                 name='status'
+                onChange={handleChange}
+                checked={product.status === false ? true : false}
                 value={false}
                 {...register("status")}
               />

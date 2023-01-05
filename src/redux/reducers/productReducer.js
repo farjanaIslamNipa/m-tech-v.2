@@ -3,9 +3,9 @@ import {
   ADD_TO_CART,
   EDIT_PRODUCT,
   LOAD_PRODUCT,
-  PRODUCT_LOADED,
   REMOVE_FROM_CART,
   REMOVE_PRODUCT,
+  UPDATE_PRODUCT,
 } from "../actionTypes/actionTypes";
 
 const initialState = {
@@ -19,7 +19,6 @@ const productReducer = (state = initialState, action) => {
     (product) => product.id === action.payload.id
   );
 
-
   switch (action.type) {
     case LOAD_PRODUCT: 
       return {
@@ -27,7 +26,6 @@ const productReducer = (state = initialState, action) => {
         products: action.payload
       }
     case EDIT_PRODUCT:
-      console.log(action.payload, 'payload')
       return {
         ...state,
         product : action.payload
@@ -37,6 +35,11 @@ const productReducer = (state = initialState, action) => {
         ...state,
         products: [...state.products, action.payload],
       };
+    case UPDATE_PRODUCT:
+      return {
+        ...state,
+        product: action.payload
+      }
     case REMOVE_PRODUCT:
       return {
         ...state,
@@ -77,12 +80,6 @@ const productReducer = (state = initialState, action) => {
         cart: state.cart.filter(
           (product) => product.id !== action.payload.id
         ),
-      };
-
-    case PRODUCT_LOADED:
-      return {
-        ...state,
-        products: action.payload,
       };
     default:
       return state;
